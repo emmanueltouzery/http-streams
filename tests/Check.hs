@@ -55,7 +55,7 @@ main = withOpenSSL $ do
     runTestServer
     hspec suite
 
-localhost = S.pack ("localhost:" ++ show localPort)
+localhost = S.pack ("127.0.0.1:" ++ show localPort)
 
 suite :: Spec
 suite = do
