@@ -221,6 +221,7 @@ baselineContextSSL = do
     SSL.contextSetVerificationMode ctx SSL.VerifyNone
 #else
     SSL.contextSetCADirectory ctx "/etc/ssl/certs"
+    SSL.contextSetCAFile ctx "/etc/ssl/certs/ca-bundle.crt"
     SSL.contextSetVerificationMode ctx $
         SSL.VerifyPeer True True Nothing
 #endif

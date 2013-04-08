@@ -50,7 +50,7 @@ import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as S
 import Data.CaseInsensitive (CI, mk, original)
 import Data.HashMap.Strict (HashMap, delete, empty, foldrWithKey, insert,
-                            lookup)
+                            insertWith, lookup)
 import Data.List (foldl')
 import Data.Monoid (mconcat, mempty)
 import Data.String (IsString, fromString)
@@ -350,7 +350,10 @@ addHeader
     -> (ByteString,ByteString)
     -> HashMap (CI ByteString) ByteString
 addHeader m (k,v) =
-    insert (mk k) v m
+    insertWith mergeHeaders (mk k) v m
+
+mergeHeaders :: ByteString -> ByteString -> ByteString
+mergeHeaders a b = S.concat [a, "\n", b]
 
 lookupHeader :: Headers -> ByteString -> Maybe ByteString
 lookupHeader x k =
